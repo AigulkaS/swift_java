@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/root-config.xml</param-value>
+  </context-param>
+
+    <servlet>
+      <servlet-name>dispatcher</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <load-on-startup>1</load-on-startup>
+  </servlet>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>*.do</url-pattern>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+<!--    <security-role>-->
+<!--        <role-name>admins</role-name>-->
+<!--    </security-role>-->
+<!--    <security-constraint>-->
+<!--        <web-resource-collection >-->
+<!--            <web-resource-name>admin pages</web-resource-name>-->
+<!--            <url-pattern>/admin/*</url-pattern>-->
+<!--        </web-resource-collection>-->
+<!--    </security-constraint>-->
+
+<!--    <security-constraint>-->
+<!--        <web-resource-collection>-->
+<!--            <web-resource-name>admin pages</web-resource-name>-->
+<!--            <url-pattern>*Admin.do</url-pattern>-->
+<!--            <http-method>GET</http-method>-->
+<!--            <http-method>POST</http-method>-->
+<!--        </web-resource-collection>-->
+<!--        <auth-constraint>-->
+<!--            <role-name>ADMIN</role-name>-->
+<!--            <role-name>USER</role-name>-->
+<!--        </auth-constraint>-->
+<!--        <user-data-constraint>-->
+<!--            <transport-guarantee>NONE</transport-guarantee>-->
+<!--        </user-data-constraint>-->
+
+<!--    </security-constraint>-->
+
+<!--    <security-role>-->
+<!--        <role-name>ADMIN</role-name>-->
+<!--    </security-role>-->
+<!--    <security-role>-->
+<!--        <role-name>USER</role-name>-->
+<!--    </security-role>-->
+
+<!--    <login-config>-->
+<!--        <auth-method>FORM</auth-method>-->
+<!--        <form-login-config>-->
+<!--            <form-login-page>/index.jsp</form-login-page>-->
+<!--            <form-error-page>/showForUser.do</form-error-page>-->
+<!--        </form-login-config>-->
+<!--    </login-config>-->
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+<!--    <welcome-file-list>-->
+<!--        <welcome-file>all.do</welcome-file>-->
+<!--    </welcome-file-list>-->
+</web-app>

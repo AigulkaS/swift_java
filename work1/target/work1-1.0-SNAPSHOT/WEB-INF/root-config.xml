@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <bean name="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+        <property name="url" value="jdbc:derby://localhost:1527/course_work;create=true"/>
+        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
+        <property name="username" value="admin"/>
+        <property name="password" value="admin"/>
+    </bean>
+
+    <!-- Будем искать JPA - аннотации -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
+    <!-- Создаём фабрику EMF для работы с JPA через источник данных dataSource -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 2.1 Создаём менеджер транзакций, привязанный к источнику данных JPA-фабрики  -->
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!-- Обработчик аннотаций @Transactional , связанных с транзакциями  -->
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <!-- 3.1 Ищем DAO автоматически по аннотациям -->
+    <context:component-scan base-package="com.work1.dao"/>
+    <context:component-scan base-package="com.work1.services"/>
+
+</beans>
